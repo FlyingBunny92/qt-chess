@@ -119,28 +119,46 @@ function checkApple() {
     }
 }
 
-function move() {
 
+function computeDirection() {
+    dir_x = apple_x - x[0];
+    dir_y = apple_y - y[0];
+    return [dir_x, dir_y];
+}
+
+function move() {
     for (var z = dots; z > 0; z--) {
         x[z] = x[(z - 1)];
         y[z] = y[(z - 1)];
     }
-
-    if (leftDirection) {
+    var dir = computeDirection();
+    if(dir[0] > 0){
+        x[0] += DOT_SIZE;
+    }else if(dir[0] < 0){
+        x[0] -= DOT_SIZE;
+    }else if(dir[1] > 0){
+        y[0] += DOT_SIZE;
+    }else if(dir[1] < 0){
+        y[0] -= DOT_SIZE;
+    }
+    //let rand = Math.floor((Math.random() * 4) + 1);
+    /*
+    if (rand==1) {
         x[0] -= DOT_SIZE;
     }
 
-    if (rightDirection) {
+    if (rand==2) {
         x[0] += DOT_SIZE;
     }
 
-    if (upDirection) {
+    if (rand==3) {
         y[0] -= DOT_SIZE;
     }
 
-    if (downDirection) {
+    if (rand==4) {
         y[0] += DOT_SIZE;
     }
+    */
 }    
 
 function checkCollision() {
@@ -193,6 +211,7 @@ function gameCycle() {
 onkeydown = function(e) {
     
     var key = e.keyCode;
+
     
     if ((key == LEFT_KEY) && (!rightDirection)) {
         
